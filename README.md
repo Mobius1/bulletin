@@ -15,31 +15,31 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 ### Send Notification
 Using `exports`:
 ```lua
-exports.bulletin:Send(message, timeout, position, progress, type)
+exports.bulletin:Send(message, timeout, position, progress, theme)
 ```
 
 Using `events`:
 
 ```lua
 -- client
-TriggerEvent("bulletin:send", message, timeout, position, progress, type)
+TriggerEvent("bulletin:send", message, timeout, position, progress, theme)
 
 -- server
-TriggerClientEvent("bulletin:send", source, message, timeout, position, progress, type)
+TriggerClientEvent("bulletin:send", source, message, timeout, position, progress, theme)
 ```
 
 ### Send Advanced Notification
 Using `exports`:
 ```lua
-exports.bulletin:SendAdvanced(message, title, subject, icon, timeout, position, progress, type)
+exports.bulletin:SendAdvanced(message, title, subject, icon, timeout, position, progress, theme)
 ```
 Using `events`:
 ```lua
 -- client 
-TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, type)
+TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, theme)
 
 -- server
-TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, icon, timeout, position, progress, type)
+TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, icon, timeout, position, progress, theme)
 ```
 
 ## Parameters
@@ -73,7 +73,7 @@ To add your own custom picture, upload a `64x64` `jpg` image to the `ui/images` 
 
 #### Example
 
-Upload `my_custom_icon_image.jpg` to the `ui/images` directory and use `MY_CUSTOM_ICON_CODE` as the key.
+Upload `my_custom_icon_image.jpg` to the `ui/images` directory and use `MY_CUSTOM_ICON_CODE` (NO SPACES!) as the key.
 
 ```lua
 Config.Pictures = {
