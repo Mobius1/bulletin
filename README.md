@@ -2,7 +2,7 @@
 Customisable notifications for FiveM. Mimics native GTAV notifications, but allows more customisation
 
 ## Features
-* Not external libraries - written from the ground up for FiveM
+* No external libraries - written from the ground up for FiveM
 * Modern JS
 * Customise the position
 * Customise the look by adding your own `css` overrides to `custom.css`
