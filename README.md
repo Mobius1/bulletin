@@ -49,15 +49,17 @@ TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, ico
 | `timeout`  | `integer` | `5000`         |                                                                                 | YES      | The duration in `ms` to display the notification            |
 | `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"` | YES      | The postion of the notification                             |
 | `progress` | `boolean` | `false`        | `true`, `false`                                                                 | YES      | Whether to display the progress of the notification timeout |
+| `theme`    | `string`  | `"default"`    | `"default"`, `"success"`, `"warning"`, `"danger"`                               | YES      | The theme of the notification                               |
 | `title`    | `string`  |                |                                                                                 | NO       | The title of the notification (advanced only)               |
 | `subject`  | `string`  |                |                                                                                 | NO       | The subject / subtitle of the notification (advanced only)  |
 | `icon`     | `string`  |                |                                                                                 | NO       | The picture to use (advanced only)                          |
 
 ## Default Config
 ```lua
-Config.Timeout  = 5000
-Config.Position = "bottomleft"
-Config.Progress = false
+Config.Timeout  = 5000          -- Overriden by the `timeout` param
+Config.Position = "bottomleft"  -- Overriden by the `position` param
+Config.Progress = false         -- Overriden by the `progress` param
+Config.Theme    = "default"     -- Overriden by the `theme` param
 Config.Queue    = 5             -- No. of notifications to show before queueing
 Config.FadeTime = 500           -- The fadeIn / fadeOut time in ms
 

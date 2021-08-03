@@ -1,18 +1,19 @@
 Config = {}
 
-Config.Timeout  = 5000
-Config.Position = "bottomleft"
-Config.Progress = false
+Config.Timeout  = 5000          -- Overriden by the `timeout` param
+Config.Position = "bottomleft"  -- Overriden by the `position` param
+Config.Progress = false         -- Overriden by the `progress` param
+Config.Theme    = "default"     -- Overriden by the `theme` param
 Config.Queue    = 5             -- No. of notifications to show before queueing
 Config.FadeTime = 500           -- The fadeIn / fadeOut time in ms
 
 -- Pictures for advanced notifications
 --
--- You can add custom icons by uploading a 64x64 jpg image to the ui/images directory then adding the code and filename here
+-- You can add custom icons by uploading a 64x64 jpeg image to the ui/images directory then adding the code and filename here
 --
 -- e.g. MY_CUSTOM_ICON_CODE = "my_custom_icon_image.jpg"
 --
--- exports.bulletin:SendAdvanced(message, title, subject, "MY_CUSTOM_ICON_CODE")
+-- ShowAdvancedNotification(message, title, subject, "MY_CUSTOM_ICON_CODE")
 --
 
 Config.Pictures = {
