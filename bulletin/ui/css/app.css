@@ -1,0 +1,265 @@
+/*
+Bulletin
+Copyright (c) 2021 Karl Saunders (Mobius1)
+Licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
+
+Version: 1.0.0
+*/
+@font-face {
+    font-family: "ChaletComprime";
+    src: url("../fonts/ChaletComprimeCologneSixty.ttf");
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+#bulletin_container {
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.bulletin-notification-container {
+    position: absolute;
+    width: 13.5vw;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+}
+
+.bulletin-notification-container.notification-container-bottom {
+    bottom: 20px;
+    left: calc((100vw - 13.5vw) / 2);
+}
+
+.bulletin-notification-container.notification-container-bottomleft {
+    left: 20px;
+    bottom: 30vh;
+}
+
+.bulletin-notification-container.notification-container-bottomright {
+    right: 20px;
+    bottom: 20px;
+}
+
+.bulletin-notification-container.notification-container-bottomright .bulletin-notification {
+    right: 0;
+}
+
+.bulletin-notification-container.notification-container-top {
+    top: 20px;
+    left: calc((100vw - 13.5vw) / 2);
+}
+
+.bulletin-notification-container.notification-container-topleft {
+    left: 20px;
+    top: 20px;
+}
+
+.bulletin-notification-container.notification-container-topright {
+    right: 20px;
+    top: 20px;
+}
+
+.bulletin-notification-container.notification-container-topright .bulletin-notification {
+    right: 0;
+}
+
+.bulletin-notification {
+    position: absolute;
+    width: 13.5vw;
+    padding: 10px;
+    opacity: 0;
+    font-size: 22px;
+    border-radius: 5px;
+    color: #fff;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(21, 23, 32, 0.9)), to(rgba(21, 23, 32, 0.2)));
+    background: linear-gradient(to right, rgba(21, 23, 32, 0.9) 0%, rgba(21, 23, 32, 0.2) 100%);    
+    font-family: "ChaletComprime";  
+    overflow: hidden;  
+}
+
+.bulletin-notification.success {
+    color: #fff;
+    background:  rgba(163, 255, 18, 0.6);
+}
+
+.bulletin-notification.success .notification-title {
+    color: #fff
+}
+
+.bulletin-notification.warning {
+    color: #fff;
+    background: rgba(255, 204, 0, 0.6);
+}
+
+.bulletin-notification.warning .notification-title {
+    color: #fff
+}
+
+.bulletin-notification.danger {
+    color: #fff;
+    background: rgba(239, 7, 93, 0.6);
+}
+
+.bulletin-notification.danger .notification-title {
+    color: #fff
+}
+
+.bulletin-notification.default .notification-title {
+    color: #fff
+}
+
+.bulletin-notification.with-progress {
+    padding-bottom: 12px;
+}
+
+.bulletin-notification .notification-header {
+    height: 72px;
+}
+
+.bulletin-notification .notification-icon {
+    width: 64px;
+    height: 64px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bulletin-notification .notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.bulletin-notification .notification-progress .notification-bar {
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    -webkit-transform: scale(0, 1);
+    transform: scale(0, 1);
+    -webkit-transform-origin: 0 0 0;
+    transform-origin: 0 0 0;
+}
+
+.bulletin-notification .w,
+.bulletin-notification .s {
+    color: #fff;
+}
+
+.bulletin-notification .r {
+    color: #ef075d;
+}
+
+.bulletin-notification .g {
+    color: #a3ff12;
+}
+
+.bulletin-notification .b {
+    color: #0099cc;
+}
+
+.bulletin-notification .y {
+    color: #ffcc00
+}
+
+.bulletin-notification .o {
+    color: #F76A2E;
+}
+
+.bulletin-notification .h {
+    font-weight: bold;
+}
+
+.bulletin-notification.active .notification-bar {
+    -webkit-animation-name: progress;
+    animation-name: progress;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+.bulletin-notification.hiding .notification-bar {
+    width: 0%;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes progress {
+    from {
+        -webkit-transform: scale(0, 1);
+        transform: scale(0, 1);
+    }
+
+    to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes progress {
+    from {
+        -webkit-transform: scale(0, 1);
+        transform: scale(0, 1);
+    }
+
+    to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+}
