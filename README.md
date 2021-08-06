@@ -1,7 +1,6 @@
 # bulletin
 Customisable notifications for FiveM. Mimics native GTAV notifications, but allows more customisation
 
-
 ## Features
 * No external libraries - written from the ground up for FiveM
 * Modern JS
@@ -11,14 +10,14 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * Add your own advanced notification pictures
 * Supports queueing
 
+### Standard
+<img src="https://imgur.com/aEqQZXD.gif" width="305" height="525">
+
 ### Advanced
 <img src="https://imgur.com/pV3Xibu.gif" width="305" height="525">
 
 ### Advanced with Progress
 <img src="https://imgur.com/ZKJg5rh.gif" width="305" height="525">
-
-### Types
-<img src="https://imgur.com/aEqQZXD.gif" width="305" height="525">
 
 
 ## Usage
