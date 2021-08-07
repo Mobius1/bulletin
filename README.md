@@ -175,7 +175,9 @@ end
 
 ## To Do / Planned
 - [ ] Reduce number of params in favour of table of options
+- [x] Support stacking
 - [x] Support notification sound
+- [ ] Support pinned notifications
 - [ ] Support user-defined entry animations (currently only supports exit animations)
 
 <br><br><br><h3 align='center'>Legal Notices</h2>
