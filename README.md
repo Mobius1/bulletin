@@ -18,6 +18,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * [Positions](https://streamable.com/v3pgjw)
 * [Animated auto-arrange](https://streamable.com/42myjy)
 * [Queued](https://streamable.com/2jbmle)
+* [Stacking](https://streamable.com/u6amog)
 * [Custom Pics](https://streamable.com/qrn3ww)
 * [Formatting](https://streamable.com/eziwiu)
 
