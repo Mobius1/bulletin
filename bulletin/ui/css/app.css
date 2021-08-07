@@ -14,22 +14,16 @@ body {
     margin: 0;
     width: 100vw;
     height: 100vh;
-    display: -webkit-box;
     display: flex;
-    -webkit-box-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     justify-content: center;
 }
 
 #bulletin_container {
     width: 100vw;
     height: 100vh;
-    display: -webkit-box;
     display: flex;
-    -webkit-box-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     justify-content: center;
 }
 
@@ -40,6 +34,7 @@ body {
     left: auto;
     bottom: auto;
     right: auto;
+    z-index: 10000;
 }
 
 .bulletin-notification-container.notification-container-bottom {
@@ -88,15 +83,14 @@ body {
     font-size: 22px;
     border-radius: 5px;
     color: #fff;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(21, 23, 32, 0.9)), to(rgba(21, 23, 32, 0.2)));
-    background: linear-gradient(to right, rgba(21, 23, 32, 0.9) 0%, rgba(21, 23, 32, 0.2) 100%);    
-    font-family: "ChaletComprime";  
-    overflow: hidden;  
+    background: linear-gradient(to right, rgba(21, 23, 32, 0.9) 0%, rgba(21, 23, 32, 0.2) 100%);
+    font-family: "ChaletComprime";
+    overflow: hidden;
 }
 
 .bulletin-notification.success {
     color: #fff;
-    background:  rgba(163, 255, 18, 0.6);
+    background: rgba(163, 255, 18, 0.6);
 }
 
 .bulletin-notification.success .notification-title {
@@ -154,9 +148,7 @@ body {
     height: 2px;
     background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
-    -webkit-transform: scale(0, 1);
     transform: scale(0, 1);
-    -webkit-transform-origin: 0 0 0;
     transform-origin: 0 0 0;
 }
 
@@ -190,24 +182,12 @@ body {
 }
 
 .bulletin-notification.active .notification-bar {
-    -webkit-animation-name: progress;
     animation-name: progress;
-    -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
 }
 
 .bulletin-notification.hiding .notification-bar {
     width: 0%;
-}
-
-@-webkit-keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
 }
 
 @keyframes fadeIn {
@@ -217,16 +197,6 @@ body {
 
     to {
         opacity: 1;
-    }
-}
-
-@-webkit-keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
     }
 }
 
@@ -240,26 +210,122 @@ body {
     }
 }
 
-@-webkit-keyframes progress {
+@keyframes fadeOutLeft {
     from {
-        -webkit-transform: scale(0, 1);
-        transform: scale(0, 1);
+        opacity: 1;
     }
 
     to {
-        -webkit-transform: scale(1, 1);
-        transform: scale(1, 1);
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@keyframes flipOutX {
+    from {
+        transform: perspective(400px);
+    }
+
+    30% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flipOutY {
+    from {
+        transform: perspective(400px);
+    }
+
+    30% {
+        transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes bounceOutLeft {
+    20% {
+        opacity: 1;
+        transform: translate3d(20px, 0, 0) scaleX(0.9);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0, 0) scaleX(2);
+    }
+}
+
+@keyframes backOutLeft {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translateX(0px) scale(0.7);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateX(-2000px) scale(0.7);
+        opacity: 0.7;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        transform: translate3d(-120%, 0, 0);
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes zoomOutLeft {
+    40% {
+        opacity: 1;
+        transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.1) translate3d(-2000px, 0, 0);
     }
 }
 
 @keyframes progress {
     from {
-        -webkit-transform: scale(0, 1);
         transform: scale(0, 1);
     }
 
     to {
-        -webkit-transform: scale(1, 1);
         transform: scale(1, 1);
     }
 }
