@@ -5,7 +5,7 @@ Config.Position         = "bottomleft"  -- Overridden by the `position` param
 Config.Progress         = false         -- Overridden by the `progress` param
 Config.Theme            = "default"     -- Overridden by the `theme` param
 Config.Queue            = 5             -- No. of notifications to show before queueing
-Config.AnimationOut     = "fadeOut";    -- Exit animation
+Config.AnimationOut     = "fadeOut";    -- Exit animation - 'fadeOut', 'fadeOutLeft', 'flipOutX', 'flipOutY', 'bounceOutLeft', 'backOutLeft', 'slideOutLeft', 'zoomOut', 'zoomOutLeft'
 Config.AnimationTime    = 500           -- Entry / exit animation interval
 
 -- Pictures for advanced notifications
