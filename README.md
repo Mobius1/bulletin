@@ -6,7 +6,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * Modern JS - no jQuery bloat
 * Supports default GTA:V and custom notification pictures
 * Customisable screen position
-* Customise the look by adding your own `css` overrides to `custom.css`
+* Customise the look by adding your own `css` overrides to `ui/css/custom.css`
 * Add your own fonts
 * Supports queueing
 
