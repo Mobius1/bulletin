@@ -1,12 +1,12 @@
 Config = {}
 
-Config.Timeout  = 5000
-Config.Position = "bottomleft"
-Config.Progress = false
-Config.Theme    = "default"
-Config.Queue    = 5             -- No. of notifications to show before queueing
-Config.AnimationOut = "slideOutLeft";
-Config.AnimationTime = 500
+Config.Timeout          = 5000          -- Overridden by the `timeout` param
+Config.Position         = "bottomleft"  -- Overridden by the `position` param
+Config.Progress         = false         -- Overridden by the `progress` param
+Config.Theme            = "default"     -- Overridden by the `theme` param
+Config.Queue            = 5             -- No. of notifications to show before queueing
+Config.AnimationOut     = "fadeOut";    -- Exit animation
+Config.AnimationTime    = 500           -- Entry / exit animation interval
 
 -- Pictures for advanced notifications
 --
