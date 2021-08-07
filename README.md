@@ -16,6 +16,15 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * [Queued](https://streamable.com/2jbmle)
 * [Custom Pics](https://streamable.com/qrn3ww)
 
+## Table of Contents
+* [Usage](#usage)
+* [Events](#events)
+* [Parameters](#parameters)
+* [Default Config](#default-config)
+* [Custom Notification Pictures](#custom-notification-pictures)
+* [Formatting](#formatting)
+* [ESX Overrides](#esx-overrides)
+* [To Do / Planned](#to-do---planned)
 
 ## Usage
 ```lua
@@ -132,6 +141,29 @@ Bulletin supports the following formatting:
 ~u~ = Black
 ~s~ / ~w~ = White
 ~h~ = Bold Text
+```
+
+## ESX Overrides
+If you're using `ESX` then you can get `bulletin` to override the notifications by editing the appropriate functions in `es_extended/client/functions.lua`:
+
+```lua
+ESX.ShowNotification = function(msg)
+    -- SetNotificationTextEntry('STRING')
+    -- AddTextComponentString(msg)
+    -- DrawNotification(0,1)
+	
+    exports.bulletin:Send(msg)
+end
+ESX.ShowAdvancedNotification = function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
+    -- if saveToBrief == nil then saveToBrief = true end
+    -- AddTextEntry('esxAdvancedNotification', msg)
+    -- BeginTextCommandThefeedPost('esxAdvancedNotification')
+    -- if hudColorIndex then ThefeedNextPostBackgroundColor(hudColorIndex) end
+    -- EndTextCommandThefeedPostMessagetext(textureDict, textureDict, false, iconType, sender, subject)
+    -- EndTextCommandThefeedPostTicker(flash or false, saveToBrief)
+	
+    exports.bulletin:SendAdvanced(msg, sender, subject, textureDict)
+end
 ```
 
 ## To Do / Planned
