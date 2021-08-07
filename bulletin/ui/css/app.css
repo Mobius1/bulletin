@@ -97,6 +97,15 @@ body {
     color: #fff
 }
 
+.bulletin-notification.info {
+    color: #fff;
+    background: rgba(0, 144, 255, 0.6);
+}
+
+.bulletin-notification.info .notification-title {
+    color: #fff
+}
+
 .bulletin-notification.warning {
     color: #fff;
     background: rgba(255, 204, 0, 0.6);
@@ -106,12 +115,12 @@ body {
     color: #fff
 }
 
-.bulletin-notification.danger {
+.bulletin-notification.error {
     color: #fff;
     background: rgba(239, 7, 93, 0.6);
 }
 
-.bulletin-notification.danger .notification-title {
+.bulletin-notification.error .notification-title {
     color: #fff
 }
 

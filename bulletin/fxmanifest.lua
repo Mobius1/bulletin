@@ -11,6 +11,7 @@ version '0.0.1'
 client_scripts {
     'config.lua',
     'bulletin.lua',
+    'demo.lua', -- remove when not needed
 }
 
 ui_page 'ui/ui.html'
@@ -26,5 +27,9 @@ files {
 
 exports {
     'Send',
-    'SendAdvanced'
+    'SendAdvanced',
+    'SendSuccess',
+    'SendInfo',
+    'SendWarning',
+    'SendError',
 }

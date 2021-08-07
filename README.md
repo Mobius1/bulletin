@@ -18,35 +18,26 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 
 
 ## Usage
-### Send Notification
-Using `exports`:
 ```lua
+-- Send notification
 exports.bulletin:Send(message, timeout, position, progress, theme)
-```
 
-Using `events`:
-
-```lua
--- client
-TriggerEvent("bulletin:send", message, timeout, position, progress, theme)
-
--- server
-TriggerClientEvent("bulletin:send", source, message, timeout, position, progress, theme)
-```
-
-### Send Advanced Notification
-Using `exports`:
-```lua
+-- Send advanced notification
 exports.bulletin:SendAdvanced(message, title, subject, icon, timeout, position, progress, theme)
-```
-Using `events`:
-```lua
--- client 
-TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, theme)
 
--- server
-TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, icon, timeout, position, progress, theme)
+-- Send success notification
+exports.bulletin:SendSuccess(message, timeout, position, progress)
+
+-- Send info notification
+exports.bulletin:SendInfo(message, timeout, position, progress)
+
+-- Send warning notification
+exports.bulletin:SendWarning(message, timeout, position, progress)
+
+-- Send error notification
+exports.bulletin:SendError(message, timeout, position, progress)
 ```
+
 
 ## Parameters
 | param      | type      | default        | options                                                                                     | optional | description                                                 |
@@ -59,6 +50,28 @@ TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, ico
 | `title`    | `string`  |                |                                                                                             | NO       | The title of the notification (advanced only)               |
 | `subject`  | `string`  |                |                                                                                             | NO       | The subject / subtitle of the notification (advanced only)  |
 | `icon`     | `string`  |                |                                                                                             | NO       | The picture to use (advanced only)                          |
+
+## Events
+All methods can be triggered from both the client and server:
+
+```lua
+TriggerEvent("bulletin:send", message, timeout, position, progress, theme)
+TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, theme)
+TriggerEvent("bulletin:sendSuccess", message, timeout, position, progress)
+TriggerEvent("bulletin:sendInfo", message, timeout, position, progress)
+TriggerEvent("bulletin:sendWarning", message, timeout, position, progress)
+TriggerEvent("bulletin:sendError", message, timeout, position, progress)
+```
+
+Remember, when triggering from server-sided script, you must add the `source` param:
+
+```lua
+-- client side
+TriggerEvent('bulletin:send', message, timeout, position, progress, theme)
+
+--server side
+TriggerClientEvent('bulletin:send', source, message, timeout, position, progress, theme)
+```
 
 ## Default Config
 ```lua

@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Copyright © Karl Saunders (Mobius1) 2021
 -- ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 
@@ -12,7 +12,6 @@
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 -- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 function Send(message, timeout, position, progress, theme)
 
     if message == nil then
@@ -45,7 +44,23 @@ function Send(message, timeout, position, progress, theme)
     })
 end
 
-function SendAdvanced(message, title, subject, icon, timeout, position, progress)
+function SendSuccess(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "success")
+end
+
+function SendInfo(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "info")
+end
+
+function SendWarning(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "warning")
+end
+
+function SendError(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "error")
+end
+
+function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme)
 
     if message == nil then
         return PrintError("^1BULLETIN ERROR: ^7Notification message is nil")
@@ -83,7 +98,8 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
         icon        = Config.Pictures[icon],
         timeout     = timeout,
         position    = position,
-        progress    = progress
+        progress    = progress,
+        theme       = theme,
     })
 end
 
@@ -104,3 +120,15 @@ AddEventHandler("bulletin:send", Send)
 
 RegisterNetEvent("bulletin:sendAdvanced")
 AddEventHandler("bulletin:sendAdvanced", SendAdvanced)
+
+RegisterNetEvent("bulletin:sendSuccess")
+AddEventHandler("bulletin:sendSuccess", SendSuccess)
+
+RegisterNetEvent("bulletin:sendInfo")
+AddEventHandler("bulletin:sendInfo", SendInfo)
+
+RegisterNetEvent("bulletin:sendWarning")
+AddEventHandler("bulletin:sendWarning", SendWarning)
+
+RegisterNetEvent("bulletin:sendError")
+AddEventHandler("bulletin:sendError", SendError)
