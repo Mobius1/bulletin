@@ -49,16 +49,16 @@ TriggerClientEvent("bulletin:sendAdvanced", source, message, title, subject, ico
 ```
 
 ## Parameters
-| param      | type      | default        | options                                                                         | optional | description                                                 |
-|------------|-----------|----------------|---------------------------------------------------------------------------------|----------|-------------------------------------------------------------|
-| `message`  | `string`  |                |                                                                                 | NO       | The message to send                                         |
-| `timeout`  | `integer` | `5000`         |                                                                                 | YES      | The duration in `ms` to display the notification            |
-| `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"` | YES      | The postion of the notification                             |
-| `progress` | `boolean` | `false`        | `true`, `false`                                                                 | YES      | Whether to display the progress of the notification timeout |
-| `theme`    | `string`  | `"default"`    | `"default"`, `"success"`, `"warning"`, `"danger"`                               | YES      | The theme of the notification                               |
-| `title`    | `string`  |                |                                                                                 | NO       | The title of the notification (advanced only)               |
-| `subject`  | `string`  |                |                                                                                 | NO       | The subject / subtitle of the notification (advanced only)  |
-| `icon`     | `string`  |                |                                                                                 | NO       | The picture to use (advanced only)                          |
+| param      | type      | default        | options                                                                                     | optional | description                                                 |
+|------------|-----------|----------------|---------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------|
+| `message`  | `string`  |                |                                                                                             | NO       | The message to send                                         |
+| `timeout`  | `integer` | `5000`         |                                                                                             | YES      | The duration in `ms` to display the notification            |
+| `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"`             | YES      | The postion of the notification                             |
+| `progress` | `boolean` | `false`        | `true`, `false`                                                                             | YES      | Whether to display the progress of the notification timeout |
+| `theme`    | `string`  | `"default"`    | `"default"`, `"success"`, `"info"`, `"warning"`, `"error"`                                  | YES      | The theme of the notification                               |
+| `title`    | `string`  |                |                                                                                             | NO       | The title of the notification (advanced only)               |
+| `subject`  | `string`  |                |                                                                                             | NO       | The subject / subtitle of the notification (advanced only)  |
+| `icon`     | `string`  |                |                                                                                             | NO       | The picture to use (advanced only)                          |
 
 ## Default Config
 ```lua
@@ -114,6 +114,7 @@ Bulletin supports the following formatting:
 ## To Do / Planned
 * Reduce number of params in favour of table of options
 * Support notification sound
+* Support user-defined entry animations (currently only supports exit animations)
 
 <br><br><br><h3 align='center'>Legal Notices</h2>
 <table><tr><td>
