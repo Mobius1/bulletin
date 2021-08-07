@@ -88,6 +88,21 @@ body {
     overflow: hidden;
 }
 
+.bulletin-notification.stacked::after {
+    position: absolute;
+    content: attr(data-count);
+    right: 0px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(239, 7, 93, 1.0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 1.0);
+}
+
 .bulletin-notification.success {
     color: #fff;
     background: rgba(163, 255, 18, 0.6);

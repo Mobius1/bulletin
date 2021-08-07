@@ -12,6 +12,8 @@
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 -- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+local notifications = {}
+
 function Send(message, timeout, position, progress, theme)
 
     if message == nil then
@@ -32,16 +34,30 @@ function Send(message, timeout, position, progress, theme)
     
     if progress == nil then
         progress = false
-    end  
+    end
 
-    AddNotification({
-        type        = "standard",
-        message     = message,
-        timeout     = timeout,
-        position    = position,
-        progress    = progress,
-        theme       = theme,
-    })
+    local duplicateID = DuplicateCheck(message)
+
+    if duplicateID then
+        SendNUIMessage({
+            type = "duplicate",
+            id = duplicateID
+        })
+    else
+        local id = uuid(message)
+
+        notifications[id] = message
+    
+        AddNotification({
+            id          = id,
+            type        = "standard",
+            message     = message,
+            timeout     = timeout,
+            position    = position,
+            progress    = progress,
+            theme       = theme,
+        })        
+    end
 end
 
 function SendSuccess(message, timeout, position, progress)
@@ -90,7 +106,12 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
         progress = false
     end  
 
+    local id = uuid(message)
+
+    notifications[id] = message
+
     AddNotification({
+        id          = id,
         type        = "advanced",
         message     = message,
         title       = title,
@@ -115,6 +136,25 @@ function PrintError(message)
     print(s)  
 end
 
+function DuplicateCheck(message)
+    for id, msg in pairs(notifications) do
+        if msg == message then
+            return id
+        end
+    end
+
+    return false
+end
+
+function uuid(message)
+    math.randomseed(GetGameTimer() + string.len(message))
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
 RegisterNetEvent("bulletin:send")
 AddEventHandler("bulletin:send", Send)
 
@@ -132,3 +172,8 @@ AddEventHandler("bulletin:sendWarning", SendWarning)
 
 RegisterNetEvent("bulletin:sendError")
 AddEventHandler("bulletin:sendError", SendError)
+
+RegisterNUICallback("nui_removed", function(data, cb)
+    notifications[data.id] = nil
+    cb('ok')
+end)

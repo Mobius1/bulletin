@@ -48,6 +48,11 @@ class NotificationContainer {
     }
 
     removeNotification(notification) {
+
+        PostData("removed", {
+            id: notification.id
+        });
+
         this.el.removeChild(notification.el);
 
         const index = this.notifications.indexOf(notification);
@@ -59,7 +64,6 @@ class NotificationContainer {
         this.queue--;
 
         if (this.queue == 0) {
-            // this.remove();
             this.canAdd = true;
         }
     }
@@ -80,7 +84,7 @@ class NotificationContainer {
 }
 
 class Notification {
-    show() {
+    show(stack) {
         this.bottom = this.position.includes("bottom");
 
         if (this.position in BulletinContainers) {
@@ -125,9 +129,9 @@ class Notification {
                         n.moveDown(r.height, true);
                     }
                 }
-            }         
+            }
 
-            setTimeout(() => {
+            this.timeout = setTimeout(() => {
                 this.el.classList.remove("active");
                 this.el.classList.add("hiding");
 
@@ -154,6 +158,39 @@ class Notification {
                 this.show();
             }, 250);
         }
+    }
+
+    stack() {
+        clearTimeout(this.timeout);
+
+        const r = this.el.getBoundingClientRect();
+
+        this.count += 1;
+        this.el.classList.add("stacked");
+        this.el.dataset.count = this.count;
+
+        this.timeout = setTimeout(() => {
+            this.el.classList.remove("active");
+            this.el.classList.add("hiding");
+
+            setTimeout(() => {
+                const index = this.container.notifications.indexOf(this);
+
+                for (var i = this.container.notifications.length - 1; i > index; i--) {
+                    const n = this.container.notifications[i];
+
+                    if (this.bottom) {
+                        n.moveDown(r.height);
+                    } else {
+                        n.moveUp(r.height);
+                    }
+                }
+
+                setTimeout(() => {
+                    this.container.removeNotification(this);
+                }, 100);
+            }, this.cfg.AnimationTime);
+        }, this.interval);
     }
 
     moveUp(h, run = false) {
@@ -227,11 +264,12 @@ class Notification {
 }
 
 class StandardNotification extends Notification {
-    constructor(cfg, message, interval, position, progress = false, theme = "default") {
+    constructor(cfg, id, message, interval, position, progress = false, theme = "default") {
 
         super();
 
         this.cfg = cfg;
+        this.id = id;
         this.message = message;
         this.interval = interval;
         this.position = position;
@@ -239,6 +277,7 @@ class StandardNotification extends Notification {
         this.progress = progress;
         this.offset = 0;
         this.theme = theme;
+        this.count = 1;
 
         this.init();
     }
@@ -270,11 +309,12 @@ class StandardNotification extends Notification {
 }
 
 class AdvancedNotification extends Notification {
-    constructor(cfg, message, title, subject, icon, interval, position, progress = false, theme = "default") {
+    constructor(cfg, id, message, title, subject, icon, interval, position, progress = false, theme = "default") {
 
         super();
 
         this.cfg = cfg
+        this.id = id;
         this.message = message;
         this.interval = interval;
         this.position = position;
@@ -285,6 +325,7 @@ class AdvancedNotification extends Notification {
         this.progress = progress;
         this.offset = 0;
         this.theme = theme;
+        this.count = 1;
 
         this.init();
     }
@@ -365,14 +406,33 @@ const onData = function(e) {
             styled = true
         }
 
-        MaxQueue = data.config.Queue;
         if (data.type == "standard") {
-            new StandardNotification(data.config, data.message, data.timeout, data.position, data.progress, data.theme).show();
-        } else {
-            new AdvancedNotification(data.config, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
+            MaxQueue = data.config.Queue;
+            new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+        } else if (data.type == "advanced") {
+            MaxQueue = data.config.Queue;
+            new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
+        } else if (data.type == "duplicate") {
+            for ( const position in BulletinContainers ) {
+                for ( const notification of BulletinContainers[position].notifications ) {
+                    if ( notification.id == data.id ) {
+                        notification.stack();
+                    }
+                }
+            }
         }
     }
 };
+
+function PostData(type = "", data = {}) {
+    fetch(`https://${GetParentResourceName()}/nui_${type}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify(data)
+    }).then(resp => resp.json()).then(resp => resp).catch(error => console.log('BULLETIN FETCH ERROR! ' + error.message));    
+}
 
 window.onload = function(e) {
     window.addEventListener('message', onData);
