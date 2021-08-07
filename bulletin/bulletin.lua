@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Copyright © Karl Saunders (Mobius1) 2021
+-- Copyright © Mobius1 2021
 -- ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
