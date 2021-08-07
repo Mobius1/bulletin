@@ -160,6 +160,7 @@ ESX.ShowNotification = function(msg)
 	
     exports.bulletin:Send(msg)
 end
+
 ESX.ShowAdvancedNotification = function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
     -- if saveToBrief == nil then saveToBrief = true end
     -- AddTextEntry('esxAdvancedNotification', msg)
