@@ -55,11 +55,22 @@ exports.bulletin:SendError(message, timeout, position, progress)
 All methods can be triggered from both the client and server:
 
 ```lua
+-- Send notification
 TriggerEvent("bulletin:send", message, timeout, position, progress, theme)
-TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, theme)
+
+-- Send advanced notification
+TriggerEvent("bulletin:sendAdvanced", "message, title, subject, icon, timeout, position, progress, theme)
+
+-- Send success notification
 TriggerEvent("bulletin:sendSuccess", message, timeout, position, progress)
+
+-- Send info notification
 TriggerEvent("bulletin:sendInfo", message, timeout, position, progress)
+
+-- Send warning notification
 TriggerEvent("bulletin:sendWarning", message, timeout, position, progress)
+
+-- Send error notification
 TriggerEvent("bulletin:sendError", message, timeout, position, progress)
 ```
 
