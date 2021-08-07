@@ -3,11 +3,11 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 
 ## Features
 * No external libraries - written from the ground up for FiveM
-* Modern JS
-* Customise the position
+* Modern JS - no jQuery bloat
+* Supports default GTA:V and custom notification pictures
+* Customisable screen position
 * Customise the look by adding your own `css` overrides to `custom.css`
 * Add your own fonts
-* Add your own advanced notification pictures
 * Supports queueing
 
 ## Demo Videos
@@ -37,19 +37,6 @@ exports.bulletin:SendWarning(message, timeout, position, progress)
 -- Send error notification
 exports.bulletin:SendError(message, timeout, position, progress)
 ```
-
-
-## Parameters
-| param      | type      | default        | options                                                                                     | optional | description                                                 |
-|------------|-----------|----------------|---------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------|
-| `message`  | `string`  |                |                                                                                             | NO       | The message to send                                         |
-| `timeout`  | `integer` | `5000`         |                                                                                             | YES      | The duration in `ms` to display the notification            |
-| `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"`             | YES      | The postion of the notification                             |
-| `progress` | `boolean` | `false`        | `true`, `false`                                                                             | YES      | Whether to display the progress of the notification timeout |
-| `theme`    | `string`  | `"default"`    | `"default"`, `"success"`, `"info"`, `"warning"`, `"error"`                                  | YES      | The theme of the notification                               |
-| `title`    | `string`  |                |                                                                                             | NO       | The title of the notification (advanced only)               |
-| `subject`  | `string`  |                |                                                                                             | NO       | The subject / subtitle of the notification (advanced only)  |
-| `icon`     | `string`  |                |                                                                                             | NO       | The picture to use (advanced only)                          |
 
 ## Events
 All methods can be triggered from both the client and server:
@@ -84,6 +71,18 @@ TriggerEvent('bulletin:send', message, timeout, position, progress, theme)
 TriggerClientEvent('bulletin:send', source, message, timeout, position, progress, theme)
 ```
 
+## Parameters
+| param      | type      | default        | options                                                                                     | optional | description                                                 |
+|------------|-----------|----------------|---------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------|
+| `message`  | `string`  |                |                                                                                             | NO       | The message to send                                         |
+| `timeout`  | `integer` | `5000`         |                                                                                             | YES      | The duration in `ms` to display the notification            |
+| `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"`             | YES      | The postion of the notification                             |
+| `progress` | `boolean` | `false`        | `true`, `false`                                                                             | YES      | Whether to display the progress of the notification timeout |
+| `theme`    | `string`  | `"default"`    | `"default"`, `"success"`, `"info"`, `"warning"`, `"error"`                                  | YES      | The theme of the notification                               |
+| `title`    | `string`  |                |                                                                                             | NO       | The title of the notification (advanced only)               |
+| `subject`  | `string`  |                |                                                                                             | NO       | The subject / subtitle of the notification (advanced only)  |
+| `icon`     | `string`  |                |                                                                                             | NO       | The picture to use (advanced only)                          |
+
 ## Default Config
 ```lua
 Config.Timeout          = 5000          -- Overridden by the `timeout` param
@@ -99,7 +98,7 @@ Config.Pictures = {
 }
 ```
 
-## Custom Advanced Notification Pictures
+## Custom Notification Pictures
 To add your own custom picture, upload a `64x64` `jpg` image to the `ui/images` directory and add the custom code and filename to the `Config.Pictures` table in `config.lua`,
 
 #### Example
