@@ -11,6 +11,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * Animated auto-stacking
 * Supports queueing
 * Supports color codes (`~r~`, `~b~`, `~h~`, etc)
+* Supports HTML as message
 
 ## Demo Videos
 * [Themes](https://streamable.com/pikxny)
@@ -87,7 +88,7 @@ TriggerClientEvent('bulletin:send', source, message, timeout, position, progress
 ## Parameters
 | param      | type      | default        | options                                                                                     | optional | description                                                 |
 |------------|-----------|----------------|---------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------|
-| `message`  | `string`  |                |                                                                                             | NO       | The message to send                                         |
+| `message`  | `string`  |                |                                                                                             | NO       | The message to send. Can be a string or valid HTML                                         |
 | `timeout`  | `integer` | `5000`         |                                                                                             | YES      | The duration in `ms` to display the notification            |
 | `position` | `string`  | `"bottomleft"` | `"bottomleft"`, `"topleft"`, `"topright"`, `"bottomright"`, `"bottom"`, `"top"`             | YES      | The postion of the notification                             |
 | `progress` | `boolean` | `false`        | `true`, `false`                                                                             | YES      | Whether to display the progress of the notification timeout |
