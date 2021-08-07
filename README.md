@@ -19,22 +19,22 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 
 ## Usage
 ```lua
--- Send notification
+-- Send standard notification
 exports.bulletin:Send(message, timeout, position, progress, theme)
 
 -- Send advanced notification
 exports.bulletin:SendAdvanced(message, title, subject, icon, timeout, position, progress, theme)
 
--- Send success notification
+-- Send standard success notification
 exports.bulletin:SendSuccess(message, timeout, position, progress)
 
--- Send info notification
+-- Send standard info notification
 exports.bulletin:SendInfo(message, timeout, position, progress)
 
--- Send warning notification
+-- Send standard warning notification
 exports.bulletin:SendWarning(message, timeout, position, progress)
 
--- Send error notification
+-- Send standard error notification
 exports.bulletin:SendError(message, timeout, position, progress)
 ```
 
@@ -42,22 +42,22 @@ exports.bulletin:SendError(message, timeout, position, progress)
 All methods can be triggered from both the client and server:
 
 ```lua
--- Send notification
+-- Send standard notification
 TriggerEvent("bulletin:send", message, timeout, position, progress, theme)
 
 -- Send advanced notification
 TriggerEvent("bulletin:sendAdvanced", message, title, subject, icon, timeout, position, progress, theme)
 
--- Send success notification
+-- Send standard success notification
 TriggerEvent("bulletin:sendSuccess", message, timeout, position, progress)
 
--- Send info notification
+-- Send standard info notification
 TriggerEvent("bulletin:sendInfo", message, timeout, position, progress)
 
--- Send warning notification
+-- Send standard warning notification
 TriggerEvent("bulletin:sendWarning", message, timeout, position, progress)
 
--- Send error notification
+-- Send standard error notification
 TriggerEvent("bulletin:sendError", message, timeout, position, progress)
 ```
 
