@@ -173,9 +173,9 @@ end
 ```
 
 ## To Do / Planned
-* Reduce number of params in favour of table of options
-* Support notification sound
-* Support user-defined entry animations (currently only supports exit animations)
+- [ ] Reduce number of params in favour of table of options
+- [x] Support notification sound
+- [ ] Support user-defined entry animations (currently only supports exit animations)
 
 <br><br><br><h3 align='center'>Legal Notices</h2>
 <table><tr><td>
