@@ -36,28 +36,27 @@ function Send(message, timeout, position, progress, theme)
         progress = false
     end
 
+    local id = nil
     local duplicateID = DuplicateCheck(message)
 
     if duplicateID then
-        SendNUIMessage({
-            type = "duplicate",
-            id = duplicateID
-        })
+        id = duplicateID
     else
-        local id = uuid(message)
-
+        id = uuid(message)
         notifications[id] = message
-    
-        AddNotification({
-            id          = id,
-            type        = "standard",
-            message     = message,
-            timeout     = timeout,
-            position    = position,
-            progress    = progress,
-            theme       = theme,
-        })        
     end
+    
+    AddNotification({
+        duplicate   = duplicateID ~= false,
+        id          = id,
+        type        = "standard",
+        message     = message,
+        timeout     = timeout,
+        position    = position,
+        progress    = progress,
+        theme       = theme,
+    })        
+
 end
 
 function SendSuccess(message, timeout, position, progress)
@@ -106,11 +105,18 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
         progress = false
     end  
 
-    local id = uuid(message)
+    local id = nil
+    local duplicateID = DuplicateCheck(message)
 
-    notifications[id] = message
+    if duplicateID then
+        id = duplicateID
+    else
+        id = uuid(message)
+        notifications[id] = message
+    end
 
     AddNotification({
+        duplicate   = duplicateID ~= false,
         id          = id,
         type        = "advanced",
         message     = message,

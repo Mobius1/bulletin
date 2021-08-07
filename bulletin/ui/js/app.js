@@ -116,6 +116,7 @@ class Notification {
             }
 
             if (this.progress) {
+                this.el.classList.add("progress");
                 this.barEl.style.animationDuration = `${this.interval}ms`;
             }
 
@@ -132,8 +133,9 @@ class Notification {
             }
 
             this.timeout = setTimeout(() => {
-                this.el.classList.remove("active");
+                this.el.classList.remove("active", "progress");
                 this.el.classList.add("hiding");
+                this.hiding = true;
 
                 setTimeout(() => {
                     const index = this.container.notifications.indexOf(this);
@@ -165,8 +167,11 @@ class Notification {
 
         const r = this.el.getBoundingClientRect();
 
+        this.el.classList.remove("progress");
+        void this.el.offsetWidth;
+        this.el.classList.add("progress", "stacked");
+
         this.count += 1;
-        this.el.classList.add("stacked");
         this.el.dataset.count = this.count;
 
         this.timeout = setTimeout(() => {
@@ -406,23 +411,43 @@ const onData = function(e) {
             styled = true
         }
 
+        MaxQueue = data.config.Queue;
+
         if (data.type == "standard") {
-            MaxQueue = data.config.Queue;
-            new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+            if ( data.duplicate ) {
+                stackDuplicate(data)
+            } else {
+                new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+            }
         } else if (data.type == "advanced") {
-            MaxQueue = data.config.Queue;
-            new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
-        } else if (data.type == "duplicate") {
-            for ( const position in BulletinContainers ) {
-                for ( const notification of BulletinContainers[position].notifications ) {
-                    if ( notification.id == data.id ) {
-                        notification.stack();
-                    }
-                }
+            if ( data.duplicate ) {
+                stackDuplicate(data)
+            } else {            
+                new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
             }
         }
     }
 };
+
+function stackDuplicate(data) {
+    for ( const position in BulletinContainers ) {
+        for ( const notification of BulletinContainers[position].notifications ) {
+            if ( notification.id == data.id ) {
+                if ( notification.hiding ) {
+                    if (data.type == "standard") {
+                        new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+                    } else if (data.type == "advanced") {
+                        new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
+                    }
+                } else {
+                    notification.stack();
+                }
+
+                break;
+            }
+        }
+    }
+}
 
 function PostData(type = "", data = {}) {
     fetch(`https://${GetParentResourceName()}/nui_${type}`, {

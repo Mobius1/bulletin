@@ -205,7 +205,7 @@ body {
     font-weight: bold;
 }
 
-.bulletin-notification.active .notification-bar {
+.bulletin-notification.active.progress .notification-bar {
     animation-name: progress;
     animation-timing-function: linear;
 }
