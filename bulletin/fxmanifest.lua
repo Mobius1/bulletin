@@ -6,12 +6,11 @@ description 'bulletin'
 
 author 'Karl Saunders (Mobius1)'
 
-version '0.0.1'
+version '1.1.1'
 
 client_scripts {
     'config.lua',
     'bulletin.lua',
-    'demo.lua', -- remove when not needed
 }
 
 ui_page 'ui/ui.html'
@@ -19,6 +18,9 @@ ui_page 'ui/ui.html'
 files {
     'ui/ui.html',
     'ui/images/*',
+    'ui/audio/*.ogg',
+    'ui/audio/*.mp3',
+    'ui/audio/*.wav',
     'ui/fonts/*.ttf',
     'ui/css/app.css',
     'ui/css/custom.css',

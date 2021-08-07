@@ -106,6 +106,7 @@ Config.Theme            = "default"     -- Overridden by the `theme` param
 Config.Queue            = 5             -- No. of notifications to show before queueing
 Config.AnimationOut     = "fadeOut";    -- Exit animation
 Config.AnimationTime    = 500           -- Entry / exit animation interval
+Config.SoundFile        = false         -- Sound file stored in ui/audio used for notification sound. Leave as false to disable.
 
 Config.Pictures = {
     -- advanced notification icons
