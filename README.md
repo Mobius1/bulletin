@@ -10,6 +10,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * Add your own fonts
 * Animated auto-stacking
 * Supports queueing
+* Supports color codes (`~r~`, `~b~`, `~h~`, etc)
 
 ## Demo Videos
 * [Themes](https://streamable.com/pikxny)
@@ -17,6 +18,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * [Animated Auto-Stacking](https://streamable.com/42myjy)
 * [Queued](https://streamable.com/2jbmle)
 * [Custom Pics](https://streamable.com/qrn3ww)
+* [Formatting](https://streamable.com/eziwiu)
 
 ## Table of Contents
 * [Usage](#usage)
