@@ -105,9 +105,12 @@ Config.Position         = "bottomleft"  -- Overridden by the `position` param
 Config.Progress         = false         -- Overridden by the `progress` param
 Config.Theme            = "default"     -- Overridden by the `theme` param
 Config.Queue            = 5             -- No. of notifications to show before queueing
-Config.AnimationOut     = "fadeOut";    -- Exit animation
+Config.Stacking         = true          -- Enables / disables stacking
+Config.ShowStackedCount = true          -- When enabled, will show stacked count in corner of notification
+Config.AnimationOut     = "fadeOut";    -- Exit animation - 'fadeOut', 'fadeOutLeft', 'flipOutX', 'flipOutY', 'bounceOutLeft', 'backOutLeft', 'slideOutLeft', 'zoomOut', 'zoomOutLeft'
 Config.AnimationTime    = 500           -- Entry / exit animation interval
 Config.SoundFile        = false         -- Sound file stored in ui/audio used for notification sound. Leave as false to disable.
+Config.SoundVolume      = 0.4           -- 0.0 - 1.0
 
 Config.Pictures = {
     -- advanced notification icons
