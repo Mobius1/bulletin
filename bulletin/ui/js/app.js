@@ -132,29 +132,7 @@ class Notification {
                 }
             }
 
-            this.timeout = setTimeout(() => {
-                this.el.classList.remove("active", "progress");
-                this.el.classList.add("hiding");
-                this.hiding = true;
-
-                setTimeout(() => {
-                    const index = this.container.notifications.indexOf(this);
-
-                    for (var i = this.container.notifications.length - 1; i > index; i--) {
-                        const n = this.container.notifications[i];
-
-                        if (this.bottom) {
-                            n.moveDown(r.height);
-                        } else {
-                            n.moveUp(r.height);
-                        }
-                    }
-
-                    setTimeout(() => {
-                        this.container.removeNotification(this);
-                    }, 100);
-                }, this.cfg.AnimationTime);
-            }, this.interval);
+            this.hide();
         } else {
             setTimeout(() => {
                 this.show();
@@ -162,21 +140,13 @@ class Notification {
         }
     }
 
-    stack() {
-        clearTimeout(this.timeout);
-
+    hide() {
         const r = this.el.getBoundingClientRect();
-
-        this.el.classList.remove("progress");
-        void this.el.offsetWidth;
-        this.el.classList.add("progress", "stacked");
-
-        this.count += 1;
-        this.el.dataset.count = this.count;
 
         this.timeout = setTimeout(() => {
             this.el.classList.remove("active");
             this.el.classList.add("hiding");
+            this.hiding = true;
 
             setTimeout(() => {
                 const index = this.container.notifications.indexOf(this);
@@ -196,6 +166,25 @@ class Notification {
                 }, 100);
             }, this.cfg.AnimationTime);
         }, this.interval);
+    }
+
+    stack() {
+        clearTimeout(this.timeout);
+
+        const r = this.el.getBoundingClientRect();
+
+        this.el.classList.remove("progress");
+        void this.el.offsetWidth;
+        this.el.classList.add("progress");
+
+        this.count += 1;
+
+        if ( this.cfg.ShowStackedCount ) {
+            this.el.classList.add("stacked");
+            this.el.dataset.count = this.count;
+        }
+
+        this.hide();
     }
 
     moveUp(h, run = false) {
@@ -414,13 +403,13 @@ const onData = function(e) {
         MaxQueue = data.config.Queue;
 
         if (data.type == "standard") {
-            if ( data.duplicate ) {
+            if ( data.duplicate && data.config.Stacking ) {
                 stackDuplicate(data)
             } else {
                 new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
             }
         } else if (data.type == "advanced") {
-            if ( data.duplicate ) {
+            if ( data.duplicate && data.config.Stacking ) {
                 stackDuplicate(data)
             } else {            
                 new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
