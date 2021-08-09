@@ -153,6 +153,12 @@ Bulletin supports the following formatting:
 ~h~ = Bold Text
 ```
 
+You can also use HTML for colors:
+
+```lua
+exports.bulletin:Send("<span class='r'>I am red</span> and <span class='y'>I am yellow</span>")
+```
+
 ## ESX Overrides
 If you're using `ESX` then you can get `bulletin` to override the notifications by editing the appropriate functions in `es_extended/client/functions.lua`:
 
