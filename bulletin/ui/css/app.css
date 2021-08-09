@@ -182,6 +182,10 @@ body {
     color: #fff;
 }
 
+.bulletin-notification .b {
+    color: #0099cc;
+}
+
 .bulletin-notification .r {
     color: #ef075d;
 }
