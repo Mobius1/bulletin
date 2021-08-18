@@ -11,6 +11,7 @@ version '1.1.5'
 client_scripts {
     'config.lua',
     'bulletin.lua',
+    'demo.lua'
 }
 
 ui_page 'ui/ui.html'
@@ -33,4 +34,6 @@ exports {
     'SendInfo',
     'SendWarning',
     'SendError',
+    'SendPinned',
+    'Unpin'
 }

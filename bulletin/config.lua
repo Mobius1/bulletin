@@ -10,6 +10,7 @@ Config.ShowStackedCount = true
 Config.AnimationOut     = "fadeOut";    -- Exit animation - 'fadeOut', 'fadeOutLeft', 'flipOutX', 'flipOutY', 'bounceOutLeft', 'backOutLeft', 'slideOutLeft', 'zoomOut', 'zoomOutLeft'
 Config.AnimationTime    = 500           -- Entry / exit animation interval
 Config.FlashCount       = 5             -- No. of times to flash the notification
+Config.FlashType       = "flash"        -- No. of times to flash the notification
 Config.SoundFile        = false         -- Sound file stored in ui/audio used for notification sound. Leave as false to disable.
 Config.SoundVolume      = 0.4           -- 0.0 - 1.0
 
@@ -23,6 +24,15 @@ Config.SoundVolume      = 0.4           -- 0.0 - 1.0
 --
 
 Config.Pictures = {
+    JOBCENTER                        = "jobcenter.jpg",
+    POLICE                           = "police.jpg",
+    CHAR_ZOOPLA                      = "zoopla.jpg",
+    CHAR_DOMINOS                     = "dominos.jpg",
+    CHAR_ROYAL_MAIL                  = "royal_mail.jpg",
+    CHAR_BIFFA                       = "biffa.jpg",
+    CHAR_DPD                         = "dpd.jpg",
+    CHAR_YODEL                       = "yodel.jpg",
+
     CHAR_ABIGAIL                     = "Char_abigail.jpg",
     CHAR_ACTING_UP                   = "Char_acting_up.jpg",
     CHAR_AGENT14                     = "Char_agent14.jpg",

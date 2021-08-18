@@ -17,9 +17,11 @@
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 -- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+math.randomseed(GetGameTimer())
+
 local notifications = {}
 
-function Send(message, timeout, position, progress, theme, exitAnim, flash)
+function Send(message, timeout, position, progress, theme, exitAnim, flash, pin_id)
     
     if type(message) == 'table' then
         SendCustom(message)
@@ -64,7 +66,8 @@ function Send(message, timeout, position, progress, theme, exitAnim, flash)
         progress    = progress,
         theme       = theme,
         exitAnim    = exitAnim,
-        flash       = flash
+        flash       = flash,
+        pin_id      = pin_id,
     })        
 
 end
@@ -85,7 +88,7 @@ function SendError(message, timeout, position, progress)
     Send(message, timeout, position, progress, "error")
 end
 
-function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme, exitAnim, flash)
+function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme, exitAnim, flash, pin_id)
 
     if type(message) == 'table' then
         SendCustom(message, true)
@@ -141,7 +144,24 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
         progress    = progress,
         theme       = theme,
         exitAnim    = exitAnim,
-        flash       = flash
+        flash       = flash,
+        pin_id      = pin_id,
+    })
+end
+
+function SendPinned(options)
+    local pin_id = uuid()
+    options.pin_id = pin_id
+
+    SendCustom(options)
+
+    return pin_id
+end
+
+function Unpin(pin_id)
+    SendNUIMessage({
+        type = 'unpin',
+        pin_id = pin_id
     })
 end
 
@@ -149,11 +169,10 @@ function SendCustom(options, advanced)
     if type(options) ~= 'table' then
         error("BULLETIN ERROR: options passed to `SendCustom` must be a table")
     end
-
     if options.type == "standard" or options.type == nil and not advanced then
-        Send(options.message, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
+        Send(options.message, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash, options.pin_id)
     elseif advanced ~= nil or options.type == "advanced" then
-        SendAdvanced(options.message, options.title, options.subject, options.icon, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
+        SendAdvanced(options.message, options.title, options.subject, options.icon, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash, options.pin_id)
     end
 end
 
@@ -180,7 +199,6 @@ function DuplicateCheck(message)
 end
 
 function uuid(message)
-    math.randomseed(GetGameTimer() + string.len(message))
     local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     return string.gsub(template, '[xy]', function (c)
         local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
