@@ -1,9 +1,9 @@
 /*
 Bulletin
 Copyright (c) 2021 Karl Saunders (Mobius1)
-Licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
+Licensed under GPLv3
 
-Version: 1.0.0
+Version: 1.1.4
 */
 @font-face {
     font-family: "ChaletComprime";
@@ -182,8 +182,8 @@ body {
     color: #fff;
 }
 
-.bulletin-notification .b {
-    color: #0099cc;
+.bulletin-notification .u {
+    color: #000000;
 }
 
 .bulletin-notification .r {
@@ -223,133 +223,9 @@ body {
     width: 0%;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeOutLeft {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-100%, 0, 0);
-    }
-}
-
-@keyframes flipOutX {
-    from {
-        transform: perspective(400px);
-    }
-
-    30% {
-        transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
-        opacity: 1;
-    }
-
-    to {
-        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
-        opacity: 0;
-    }
-}
-
-@keyframes flipOutY {
-    from {
-        transform: perspective(400px);
-    }
-
-    30% {
-        transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
-        opacity: 1;
-    }
-
-    to {
-        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-        opacity: 0;
-    }
-}
-
-@keyframes bounceOutLeft {
-    20% {
-        opacity: 1;
-        transform: translate3d(20px, 0, 0) scaleX(0.9);
-    }
-
-    to {
-        opacity: 0;
-        transform: translate3d(-2000px, 0, 0) scaleX(2);
-    }
-}
-
-@keyframes backOutLeft {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    20% {
-        transform: translateX(0px) scale(0.7);
-        opacity: 0.7;
-    }
-
-    100% {
-        transform: translateX(-2000px) scale(0.7);
-        opacity: 0.7;
-    }
-}
-
-@keyframes slideOutLeft {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        visibility: hidden;
-        transform: translate3d(-120%, 0, 0);
-    }
-}
-
-@keyframes zoomOut {
-    from {
-        opacity: 1;
-    }
-
+@keyframes flash {
     50% {
         opacity: 0;
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes zoomOutLeft {
-    40% {
-        opacity: 1;
-        transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
-    }
-
-    to {
-        opacity: 0;
-        transform: scale(0.1) translate3d(-2000px, 0, 0);
     }
 }
 

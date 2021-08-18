@@ -6,7 +6,7 @@ description 'bulletin'
 
 author 'Karl Saunders (Mobius1)'
 
-version '1.1.1'
+version '1.1.4'
 
 client_scripts {
     'config.lua',
@@ -22,9 +22,8 @@ files {
     'ui/audio/*.mp3',
     'ui/audio/*.wav',
     'ui/fonts/*.ttf',
-    'ui/css/app.css',
-    'ui/css/custom.css',
-    'ui/js/app.js'
+    'ui/css/*.css',
+    'ui/js/*.js'
 }
 
 exports {

@@ -1,5 +1,8 @@
 /*!
- * Copyright © Mobius1 2021
+ * Copyright (c) 2021 Karl Saunders (Mobius1)
+ * Licensed under GPLv3
+ * 
+ * Version: 1.1.4
  *
  *  ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 */
@@ -147,6 +150,10 @@ class Notification {
             this.el.classList.remove("active");
             this.el.classList.add("hiding");
             this.hiding = true;
+            
+            if ( this.exitAnim ) {
+                this.el.style.animationName = this.exitAnim;
+            }
 
             setTimeout(() => {
                 const index = this.container.notifications.indexOf(this);
@@ -258,7 +265,7 @@ class Notification {
 }
 
 class StandardNotification extends Notification {
-    constructor(cfg, id, message, interval, position, progress = false, theme = "default") {
+    constructor(cfg, id, message, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false) {
 
         super();
 
@@ -271,6 +278,8 @@ class StandardNotification extends Notification {
         this.progress = progress;
         this.offset = 0;
         this.theme = theme;
+        this.exitAnim = exitAnim;
+        this.flash = flash;
         this.count = 1;
 
         this.init();
@@ -279,7 +288,8 @@ class StandardNotification extends Notification {
     init() {
         this.el = document.createElement("div");
         this.el.classList.add("bulletin-notification");
-        
+        this.el.classList.toggle("flash", this.flash);
+
         this.message = this.parseMessage(this.message);
         this.el.innerHTML = this.message;
 
@@ -303,7 +313,7 @@ class StandardNotification extends Notification {
 }
 
 class AdvancedNotification extends Notification {
-    constructor(cfg, id, message, title, subject, icon, interval, position, progress = false, theme = "default") {
+    constructor(cfg, id, message, title, subject, icon, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false) {
 
         super();
 
@@ -319,6 +329,8 @@ class AdvancedNotification extends Notification {
         this.progress = progress;
         this.offset = 0;
         this.theme = theme;
+        this.exitAnim = exitAnim;
+        this.flash = flash;
         this.count = 1;
 
         this.init();
@@ -332,6 +344,7 @@ class AdvancedNotification extends Notification {
 
         this.el = document.createElement("div");
         this.el.classList.add("bulletin-notification");
+        this.el.classList.toggle("flash", this.flash);
 
         if ( this.theme ) {
             this.el.classList.add(this.theme);
@@ -385,10 +398,21 @@ const onData = function(e) {
 
         if ( !styled ) {
             const css = `
+            .animate__animated {
+                -webkit-animation-duration: ${data.config.AnimationTime};
+                animation-duration: ${data.config.AnimationTime};
+            }
+
             .bulletin-notification.active {
                 opacity: 0;
                 animation: fadeIn ${data.config.AnimationTime}ms ease 0ms forwards;
             }
+
+            .bulletin-notification.active.flash {
+                opacity: 1;
+                animation: flash 400ms linear infinite;
+                animation-iteration-count: ${data.config.FlashCount};
+              }            
             
             .bulletin-notification.hiding {
                 opacity: 1;
@@ -406,13 +430,13 @@ const onData = function(e) {
             if ( data.duplicate && data.config.Stacking ) {
                 stackDuplicate(data)
             } else {
-                new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+                new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme, data.exitAnim, data.flash).show();
             }
         } else if (data.type == "advanced") {
             if ( data.duplicate && data.config.Stacking ) {
                 stackDuplicate(data)
-            } else {            
-                new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
+            } else {          
+                new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme, data.exitAnim, data.flash).show();
             }
         }
     }
@@ -424,9 +448,9 @@ function stackDuplicate(data) {
             if ( notification.id == data.id ) {
                 if ( notification.hiding ) {
                     if (data.type == "standard") {
-                        new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme).show();
+                        new StandardNotification(data.config, data.id, data.message, data.timeout, data.position, data.progress, data.theme, data.flash).show();
                     } else if (data.type == "advanced") {
-                        new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme).show();
+                        new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme, data.flash).show();
                     }
                 } else {
                     notification.stack();

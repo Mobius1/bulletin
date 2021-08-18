@@ -1,5 +1,10 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Copyright © Mobius1 2021
+-- * Bulletin
+-- * Copyright (c) 2021 Karl Saunders (Mobius1)
+-- * Licensed under GPLv3
+
+-- * Version: 1.1.4
+--
 -- ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
@@ -14,15 +19,18 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 local notifications = {}
 
-function Send(message, timeout, position, progress, theme)
+function Send(message, timeout, position, progress, theme, exitAnim, flash)
+    
+    if type(message) == 'table' then
+        SendCustom(message)
+        return
+    end
 
     if message == nil then
         return PrintError("^1BULLETIN ERROR: ^7Notification message is nil")
     end
 
-    if type(message) == "number" then
-        message = tostring(message)
-    end
+    message = tostring(message)
 
     if not tonumber(timeout) then
         timeout = Config.Timeout
@@ -55,6 +63,8 @@ function Send(message, timeout, position, progress, theme)
         position    = position,
         progress    = progress,
         theme       = theme,
+        exitAnim    = exitAnim,
+        flash       = flash
     })        
 
 end
@@ -75,15 +85,13 @@ function SendError(message, timeout, position, progress)
     Send(message, timeout, position, progress, "error")
 end
 
-function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme)
+function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme, exitAnim, flash)
 
     if message == nil then
         return PrintError("^1BULLETIN ERROR: ^7Notification message is nil")
     end
 
-    if type(message) == "number" then
-        message = tostring(message)
-    end
+    message = tostring(message)
 
     if title == nil then
         return PrintError("^1BULLETIN ERROR: ^7Notification title is nil")
@@ -127,7 +135,21 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
         position    = position,
         progress    = progress,
         theme       = theme,
+        exitAnim    = exitAnim,
+        flash       = flash
     })
+end
+
+function SendCustom(options)
+    if type(options) ~= 'table' then
+        error("BULLETIN ERROR: options passed to `SendCustom` must be a table")
+    end
+
+    if options.type == "standard" or options.type == nil then
+        Send(options.message, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
+    elseif options.type == "advanced" then
+        SendAdvanced(options.message, options.title, options.subject, options.icon, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
+    end
 end
 
 function AddNotification(data)

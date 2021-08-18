@@ -9,6 +9,7 @@ Config.Stacking         = true
 Config.ShowStackedCount = true
 Config.AnimationOut     = "fadeOut";    -- Exit animation - 'fadeOut', 'fadeOutLeft', 'flipOutX', 'flipOutY', 'bounceOutLeft', 'backOutLeft', 'slideOutLeft', 'zoomOut', 'zoomOutLeft'
 Config.AnimationTime    = 500           -- Entry / exit animation interval
+Config.FlashCount       = 5             -- No. of times to flash the notification
 Config.SoundFile        = false         -- Sound file stored in ui/audio used for notification sound. Leave as false to disable.
 Config.SoundVolume      = 0.4           -- 0.0 - 1.0
 
