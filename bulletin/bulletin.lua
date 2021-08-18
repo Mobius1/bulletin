@@ -3,7 +3,7 @@
 -- * Copyright (c) 2021 Karl Saunders (Mobius1)
 -- * Licensed under GPLv3
 
--- * Version: 1.1.4
+-- * Version: 1.1.5
 --
 -- ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 
@@ -87,6 +87,11 @@ end
 
 function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme, exitAnim, flash)
 
+    if type(message) == 'table' then
+        SendCustom(message, true)
+        return
+    end
+
     if message == nil then
         return PrintError("^1BULLETIN ERROR: ^7Notification message is nil")
     end
@@ -140,14 +145,14 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
     })
 end
 
-function SendCustom(options)
+function SendCustom(options, advanced)
     if type(options) ~= 'table' then
         error("BULLETIN ERROR: options passed to `SendCustom` must be a table")
     end
 
-    if options.type == "standard" or options.type == nil then
+    if options.type == "standard" or options.type == nil and not advanced then
         Send(options.message, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
-    elseif options.type == "advanced" then
+    elseif advanced ~= nil or options.type == "advanced" then
         SendAdvanced(options.message, options.title, options.subject, options.icon, options.timeout, options.position, options.progress, options.theme, options.exitAnim, options.flash)
     end
 end
