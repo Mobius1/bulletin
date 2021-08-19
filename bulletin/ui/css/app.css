@@ -104,6 +104,21 @@ body {
     color: #000;
 }
 
+.bulletin-notification.pinned::after {
+    position: absolute;
+    content: "";
+    right: 4px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    font-size: 16px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
 .bulletin-notification.success {
     color: #fff;
     background: rgba(163, 255, 18, 0.6);
@@ -221,12 +236,6 @@ body {
 
 .bulletin-notification.hiding .notification-bar {
     width: 0%;
-}
-
-@keyframes flash {
-    50% {
-        opacity: 0;
-    }
 }
 
 @keyframes progress {

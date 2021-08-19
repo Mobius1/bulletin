@@ -156,6 +156,30 @@ class Notification {
             this.pin_id = pin_id;
             pinned[pin_id] = this;
         }
+
+        this.el = document.createElement("div");
+        this.el.classList.add("bulletin-notification");
+        this.el.classList.toggle("flash", this.flash);
+        this.el.classList.toggle("pinned", this.pin_id != undefined);
+
+        if ( this.theme ) {
+            this.el.classList.add(this.theme);
+        }
+
+        if (this.progress) {
+            this.el.classList.add("with-progress");
+            this.progressEl = document.createElement("div");
+            this.progressEl.classList.add("notification-progress");
+
+            this.barEl = document.createElement("div");
+            this.barEl.classList.add("notification-bar");
+
+            this.progressEl.appendChild(this.barEl);
+
+            this.el.appendChild(this.progressEl);
+        }        
+
+        this.init();
     }
 
     /**
@@ -430,8 +454,6 @@ class StandardNotification extends Notification {
      */
     constructor(cfg, id, message, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false, pin_id = false) {
         super(cfg, id, message, interval, position, progress, theme, exitAnim, flash, pin_id);
-
-        this.init();
     }
 
     /**
@@ -443,26 +465,10 @@ class StandardNotification extends Notification {
         this.el = document.createElement("div");
         this.el.classList.add("bulletin-notification");
         this.el.classList.toggle("flash", this.flash);
+        this.el.classList.toggle("pinned", this.pin_id != undefined);
 
         this.message = this.parseMessage(this.message);
-        this.el.innerHTML = this.message;
-
-        if ( this.theme ) {
-            this.el.classList.add(this.theme);
-        }        
-
-        if (this.progress) {
-            this.el.classList.add("with-progress");
-            this.progressEl = document.createElement("div");
-            this.progressEl.classList.add("notification-progress");
-
-            this.barEl = document.createElement("div");
-            this.barEl.classList.add("notification-bar");
-
-            this.progressEl.appendChild(this.barEl);
-
-            this.el.appendChild(this.progressEl);
-        }
+        this.el.innerHTML = this.message;      
     }
 }
 
@@ -492,8 +498,6 @@ class AdvancedNotification extends Notification {
      */
     constructor(cfg, id, message, title, subject, icon, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false, pin_id = false) {
         super(cfg, id, message, interval, position, progress, theme, exitAnim, flash, pin_id, title, subject, icon);
-
-        this.init();
     }
 
     /**
@@ -506,14 +510,6 @@ class AdvancedNotification extends Notification {
         this.title = this.parseMessage(this.title);
         this.subject = this.parseMessage(this.subject);
         this.message = this.parseMessage(this.message);
-
-        this.el = document.createElement("div");
-        this.el.classList.add("bulletin-notification");
-        this.el.classList.toggle("flash", this.flash);
-
-        if ( this.theme ) {
-            this.el.classList.add(this.theme);
-        }
 
         this.headerEl = document.createElement("div");
         this.headerEl.classList.add("notification-header");
@@ -530,7 +526,6 @@ class AdvancedNotification extends Notification {
         this.messageEl = document.createElement("div");
         this.messageEl.classList.add("notification-message");
 
-
         this.iconEl.innerHTML = `<img src="images/${this.icon}" />`;
         this.titleEl.innerHTML = this.title;
         this.subjectEl.innerHTML = this.subject;
@@ -541,19 +536,6 @@ class AdvancedNotification extends Notification {
         this.headerEl.appendChild(this.subjectEl);
         this.el.appendChild(this.headerEl);
         this.el.appendChild(this.messageEl);
-
-        if (this.progress) {
-            this.el.classList.add("with-progress");
-            this.progressEl = document.createElement("div");
-            this.progressEl.classList.add("notification-progress");
-
-            this.barEl = document.createElement("div");
-            this.barEl.classList.add("notification-bar");
-
-            this.progressEl.appendChild(this.barEl);
-
-            this.el.appendChild(this.progressEl);
-        }
     }
 }
 
