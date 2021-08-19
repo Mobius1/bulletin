@@ -183,7 +183,7 @@ exports.bulletin:Send("<h1>Some Title</h1><p class='paragraph'>Some text</p><foo
 In order to send a pinned notification, you'll need to store the notification's `pin_id` so you can unpin it later.
 
 ```lua
-local pinID = exports.bulleting:SendPinned({
+local pinID = exports.bulletin:SendPinned({
     type = 'advanced' -- or 'standard'
     message = 'This is pinned!'
 })
