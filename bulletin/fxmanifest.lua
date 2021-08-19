@@ -6,7 +6,7 @@ description 'bulletin'
 
 author 'Karl Saunders (Mobius1)'
 
-version '1.1.5'
+version '1.1.6'
 
 client_scripts {
     'config.lua',
