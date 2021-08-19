@@ -21,6 +21,18 @@ math.randomseed(GetGameTimer())
 
 local notifications = {}
 
+--[[
+-- Send standard notification 
+-- @param message [string | table] The notification message or table of options
+-- @param timeout [integer] The time in ms to display the notification
+-- @param position [string] The notification position
+-- @param progress [boolean] Display progress bar
+-- @param theme [string] The notification theme
+-- @param exitAnim [string] The animation used to hide the notification
+-- @param flash [boolean] Make the notification blink
+-- @param pin_id [string] Unique UUID for pinning
+-- @return void
+]]
 function Send(message, timeout, position, progress, theme, exitAnim, flash, pin_id)
     
     if type(message) == 'table' then
@@ -72,22 +84,21 @@ function Send(message, timeout, position, progress, theme, exitAnim, flash, pin_
 
 end
 
-function SendSuccess(message, timeout, position, progress)
-    Send(message, timeout, position, progress, "success")
-end
-
-function SendInfo(message, timeout, position, progress)
-    Send(message, timeout, position, progress, "info")
-end
-
-function SendWarning(message, timeout, position, progress)
-    Send(message, timeout, position, progress, "warning")
-end
-
-function SendError(message, timeout, position, progress)
-    Send(message, timeout, position, progress, "error")
-end
-
+--[[
+-- Send advanced notification 
+-- @param message [string | table] The notification message or table of options
+-- @param title [string] The title of the notification
+-- @param subject [string] The subtitle of the notification
+-- @param icon [string] The icon of the notification
+-- @param timeout [integer] The time in ms to display the notification
+-- @param position [string] The notification position
+-- @param progress [boolean] Display progress bar
+-- @param theme [string] The notification theme
+-- @param exitAnim [string] The animation used to hide the notification
+-- @param flash [boolean] Make the notification blink
+-- @param pin_id [string] Unique UUID for pinning
+-- @return void
+]]
 function SendAdvanced(message, title, subject, icon, timeout, position, progress, theme, exitAnim, flash, pin_id)
 
     if type(message) == 'table' then
@@ -149,6 +160,27 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
     })
 end
 
+function SendSuccess(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "success")
+end
+
+function SendInfo(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "info")
+end
+
+function SendWarning(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "warning")
+end
+
+function SendError(message, timeout, position, progress)
+    Send(message, timeout, position, progress, "error")
+end
+
+--[[
+-- Sends a pinned notification    
+-- @param options [table]
+-- @return [string] uuid
+]]
 function SendPinned(options)
     local pin_id = uuid()
     options.pin_id = pin_id
@@ -158,13 +190,25 @@ function SendPinned(options)
     return pin_id
 end
 
-function Unpin(pin_id)
+--[[
+-- Unpins notifications   
+-- @param pinned [string | table | nil]
+-- @return void
+]]
+function Unpin(pinned)
     SendNUIMessage({
         type = 'unpin',
-        pin_id = pin_id
+        pin_id = pinned
     })
 end
 
+
+--[[
+-- Send custom notification   
+-- @param options [table]
+-- @param advanced [boolean]
+-- @return void
+]]
 function SendCustom(options, advanced)
     if type(options) ~= 'table' then
         error("BULLETIN ERROR: options passed to `SendCustom` must be a table")
@@ -176,11 +220,21 @@ function SendCustom(options, advanced)
     end
 end
 
+--[[
+-- Send notification data to NUI   
+-- @param data [table]
+-- @return void
+]]
 function AddNotification(data)
     data.config = Config
     SendNUIMessage(data)
 end
 
+--[[
+-- Prints error to console   
+-- @param message [string]
+-- @return void
+]]
 function PrintError(message)
     local s = string.rep("=", string.len(message))
     print(s)
@@ -188,6 +242,11 @@ function PrintError(message)
     print(s)  
 end
 
+--[[
+-- Checks for duplicate notification   
+-- @param message [string]
+-- @return [string | boolean]
+]]
 function DuplicateCheck(message)
     for id, msg in pairs(notifications) do
         if msg == message then
@@ -198,7 +257,12 @@ function DuplicateCheck(message)
     return false
 end
 
-function uuid(message)
+--[[
+-- Generates unique UUID   
+-- @param message [string]
+-- @return [string] UUID
+]]
+function uuid()
     local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     return string.gsub(template, '[xy]', function (c)
         local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
@@ -223,6 +287,12 @@ AddEventHandler("bulletin:sendWarning", SendWarning)
 
 RegisterNetEvent("bulletin:sendError")
 AddEventHandler("bulletin:sendError", SendError)
+
+RegisterNetEvent("bulletin:sendPinned")
+AddEventHandler("bulletin:sendPinned", SendPinned)
+
+RegisterNetEvent("bulletin:unpin")
+AddEventHandler("bulletin:unpin", Unpin)
 
 RegisterNUICallback("nui_removed", function(data, cb)
     notifications[data.id] = nil

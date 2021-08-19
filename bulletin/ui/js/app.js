@@ -26,7 +26,17 @@ let styled = false;
 let pinned = {};
 
 
+/**
+ *
+ *
+ * @class NotificationContainer
+ */
 class NotificationContainer {
+    /**
+     * Creates an instance of NotificationContainer.
+     * @param {string} position
+     * @memberof NotificationContainer
+     */
     constructor(position) {
         this.container = document.getElementById("bulletin_container");
         this.el = document.createElement("div");
@@ -40,6 +50,12 @@ class NotificationContainer {
         this.canAdd = true;
     }
 
+    /**
+     *
+     *
+     * @param {object} notification
+     * @memberof NotificationContainer
+     */
     addNotification(notification) {
 
         if (!notification.pin_id) {
@@ -55,6 +71,12 @@ class NotificationContainer {
         }
     }
 
+    /**
+     *
+     *
+     * @param {object} notification
+     * @memberof NotificationContainer
+     */
     removeNotification(notification) {
 
         PostData("removed", {
@@ -76,21 +98,42 @@ class NotificationContainer {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof NotificationContainer
+     */
     add() {
         if (!this.container.contains(this.el)) {
             this.container.appendChild(this.el);
         }
     }
 
+    /**
+     *
+     *
+     * @memberof NotificationContainer
+     */
     remove() {
         this.container.removeChild(this.el);
     }
 
+    /**
+     *
+     *
+     * @return {boolean} 
+     * @memberof NotificationContainer
+     */
     empty() {
         return this.el.children.length < 1;
     }
 }
 
+/**
+ *
+ *
+ * @class Notification
+ */
 class Notification {
     constructor(cfg, id, message, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false, pin_id = false, title, subject, icon) {
         this.cfg = cfg
@@ -115,7 +158,12 @@ class Notification {
         }
     }
 
-    show(stack) {
+    /**
+     *
+     *
+     * @memberof Notification
+     */
+    show() {
         this.bottom = this.position.toLowerCase().includes("bottom");
 
         if (this.position in BulletinContainers) {
@@ -173,6 +221,11 @@ class Notification {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof Notification
+     */
     hide() {
         const r = this.el.getBoundingClientRect();
 
@@ -205,6 +258,11 @@ class Notification {
         }, this.interval);
     }
 
+    /**
+     *
+     *
+     * @memberof Notification
+     */
     unpin() {
         const r = this.el.getBoundingClientRect();
 
@@ -237,6 +295,11 @@ class Notification {
         }, this.cfg.AnimationTime);
     }
 
+    /**
+     *
+     *
+     * @memberof Notification
+     */
     stack() {
         clearTimeout(this.timeout);
 
@@ -256,6 +319,13 @@ class Notification {
         this.hide();
     }
 
+    /**
+     *
+     *
+     * @param {float} h
+     * @param {boolean} [run=false]
+     * @memberof Notification
+     */
     moveUp(h, run = false) {
         const offset = h + this.container.spacing;
 
@@ -283,6 +353,13 @@ class Notification {
         }, 250);
     }
 
+    /**
+     *
+     *
+     * @param {float} h
+     * @param {boolean} [run=false]
+     * @memberof Notification
+     */
     moveDown(h, run = false) {
         const offset = h + this.container.spacing;
 
@@ -311,7 +388,14 @@ class Notification {
         }, 250);
     }
 
-    parseMessage(message, count = 4) {
+    /**
+     *
+     *
+     * @param {string} message
+     * @return {string} 
+     * @memberof Notification
+     */
+    parseMessage(message) {
         const regexColor = /~([^h])~([^~]+)/g;	
         const regexBold = /~([h])~([^~]+)/g;	
         const regexStop = /~s~/g;	
@@ -323,13 +407,38 @@ class Notification {
     }
 }
 
+/**
+ *
+ *
+ * @class StandardNotification
+ * @extends {Notification}
+ */
 class StandardNotification extends Notification {
+    /**
+     * Creates an instance of StandardNotification.
+     * @param {object} cfg
+     * @param {string} id
+     * @param {string} message
+     * @param {integer} interval
+     * @param {string} position
+     * @param {boolean} [progress=false]
+     * @param {string} [theme="default"]
+     * @param {string} [exitAnim="fadeOut"]
+     * @param {boolean} [flash=false]
+     * @param {boolean} [pin_id=false]
+     * @memberof StandardNotification
+     */
     constructor(cfg, id, message, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false, pin_id = false) {
         super(cfg, id, message, interval, position, progress, theme, exitAnim, flash, pin_id);
 
         this.init();
     }
 
+    /**
+     *
+     *
+     * @memberof StandardNotification
+     */
     init() {
         this.el = document.createElement("div");
         this.el.classList.add("bulletin-notification");
@@ -357,13 +466,41 @@ class StandardNotification extends Notification {
     }
 }
 
+/**
+ *
+ *
+ * @class AdvancedNotification
+ * @extends {Notification}
+ */
 class AdvancedNotification extends Notification {
+    /**
+     * Creates an instance of AdvancedNotification.
+     * @param {object} cfg
+     * @param {string} id
+     * @param {string} message
+     * @param {string} title
+     * @param {string} subject
+     * @param {string} icon
+     * @param {integer} interval
+     * @param {string} position
+     * @param {boolean} [progress=false]
+     * @param {string} [theme="default"]
+     * @param {string} [exitAnim="fadeOut"]
+     * @param {boolean} [flash=false]
+     * @param {boolean} [pin_id=false]
+     * @memberof AdvancedNotification
+     */
     constructor(cfg, id, message, title, subject, icon, interval, position, progress = false, theme = "default", exitAnim = "fadeOut", flash = false, pin_id = false) {
         super(cfg, id, message, interval, position, progress, theme, exitAnim, flash, pin_id, title, subject, icon);
 
         this.init();
     }
 
+    /**
+     *
+     *
+     * @memberof AdvancedNotification
+     */
     init() {
 
         this.title = this.parseMessage(this.title);
@@ -420,6 +557,11 @@ class AdvancedNotification extends Notification {
     }
 }
 
+/**
+ *
+ *
+ * @param {Event} e
+ */
 const onData = function(e) {
     const data = e.data;
     if (data.type) {
@@ -476,14 +618,30 @@ const onData = function(e) {
                 new AdvancedNotification(data.config, data.id, data.message, data.title, data.subject, data.icon, data.timeout, data.position, data.progress, data.theme, data.exitAnim, data.flash, data.pin_id).show();
             }
         } else if (data.type == "unpin") {
-            console.log(Object.keys(pinned).length)
-            if ( pinned.hasOwnProperty(data.pin_id) ) {
-                pinned[data.pin_id].unpin();
+            if ( Array.isArray(data.pin_id) ) { // array of pin ids
+                for ( const item of data.pin_id ) {
+                    if ( pinned.hasOwnProperty(item) ) {
+                        pinned[item].unpin();
+                    }
+                }
+            } else if ( typeof(data.pin_id) == 'string' ) {  // unpin single
+                if ( pinned.hasOwnProperty(data.pin_id) ) {
+                    pinned[data.pin_id].unpin();
+                }
+            } else {
+                for ( let id in pinned ) { // unpin all
+                    pinned[id].unpin();
+                }
             }
         }
     }
 };
 
+/**
+ *
+ *
+ * @param {table} data
+ */
 function stackDuplicate(data) {
     for ( const position in BulletinContainers ) {
         for ( const notification of BulletinContainers[position].notifications ) {
@@ -504,6 +662,12 @@ function stackDuplicate(data) {
     }
 }
 
+/**
+ *
+ *
+ * @param {string} [type=""]
+ * @param {*} [data={}]
+ */
 function PostData(type = "", data = {}) {
     fetch(`https://${GetParentResourceName()}/nui_${type}`, {
         method: 'POST',
