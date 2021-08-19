@@ -10,6 +10,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
 * Supports default GTA:V and custom notification pictures
 * Supports queueing
 * Supports stacking
+* Supports pinning
 * Supports color codes (`~r~`, `~b~`, `~h~`, etc)
 * Supports HTML as message
 
@@ -32,6 +33,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
   * [Default Config](#default-config)
   * [Custom Notification Pictures](#custom-notification-pictures)
   * [Formatting](#formatting)
+  * [Pinned Notifications](#pinned-notifications)
   * [ESX Overrides](#esx-overrides)
   * [To Do / Planned](#to-do---planned)
 
@@ -176,6 +178,36 @@ or any HTML you like
 exports.bulletin:Send("<h1>Some Title</h1><p class='paragraph'>Some text</p><footer>Some footer text</footer>")
 ```
 
+## Pinned Notifications
+
+In order to send a pinned notification, you'll need to store the notification's `pin_id` so you can unpin it later.
+
+```lua
+local pinID = exports.bulleting:SendPinned({
+    type = 'advanced' -- or 'standard'
+    message = 'This is pinned!'
+})
+```
+
+Then to unpin it just pass the stored value to the `Unpin()` method:
+
+```lua
+exports.bulletin:Unpin(pinID)
+```
+
+The `Unpin()` method also accepts a `table` of pin ids:
+
+```lua
+exports.bulletin:Unpin({pinned1, pinned2, pinned3})
+```
+
+or omit the param to unpin all:
+```lua
+exports.bulletin:Unpin()
+```
+
+Pinned notifications are not queued so, for example, if you set `Config.Queue` to `5` and you have `2` pinned notifications, you'll get a max of `7` notifications shown at any time.
+
 ## ESX Overrides
 If you're using `ESX` then you can get `bulletin` to override the notifications by editing the appropriate functions in `es_extended/client/functions.lua`:
 
@@ -204,7 +236,7 @@ end
 - [x] Reduce number of params in favour of table of options
 - [x] Support stacking
 - [x] Support notification sound
-- [ ] Support pinned notifications
+- [x] Support pinned notifications
 - [ ] Support user-defined entry animations (currently only supports exit animations)
 
 <br><br><br><h3 align='center'>Legal Notices</h2>
