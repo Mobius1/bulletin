@@ -78,7 +78,14 @@ local pinID = exports.bulletin:SendPinned({
     icon = 'CHAR_MAZE_BANK'
 })
 
+-- unpin
 exports.bulletin:Unpin(pinID)
+
+-- unpin multiple
+exports.bulletin:Unpin({pinID1, pinID2, pinID3, ...})
+
+-- unpin all
+exports.bulletin:Unpin()
 ```
 ## Helper Functions
 These are shorthand methods for sending themed notification. They take the same params / table as the `Send()` method:
