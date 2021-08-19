@@ -27,6 +27,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
   * [Usage](#usage)
       - [Standard Notification](#standard-notification)
       - [Advanced notification](#advanced-notification)
+      - [Pinned notification](#pinned-notification)
   * [Helper Functions](#helper-functions)
   * [Server Events](#server-events)
   * [Parameters](#parameters)
@@ -67,7 +68,18 @@ exports.bulletin:SendAdvanced({
     ...
 })
 ```
+#### Pinned notification
+```lua
+local pinID = exports.bulletin:SendPinned({
+    type = 'advanced' -- or 'standard'
+    message = 'This is pinned!',
+    title = 'Title',
+    subject = 'Subject',
+    icon = 'CHAR_MAZE_BANK'
+})
 
+exports.bulletin:Unpin(pinID)
+```
 ## Helper Functions
 These are shorthand methods for sending themed notification. They take the same params / table as the `Send()` method:
 ```lua
