@@ -161,10 +161,7 @@ class Notification {
         this.el.classList.add("bulletin-notification");
         this.el.classList.toggle("flash", this.flash);
         this.el.classList.toggle("pinned", this.pin_id != undefined);
-
-        if ( this.theme ) {
-            this.el.classList.add(this.theme);
-        }
+        this.el.classList.add(this.theme);
 
         if (this.progress) {
             this.el.classList.add("with-progress");
@@ -462,11 +459,6 @@ class StandardNotification extends Notification {
      * @memberof StandardNotification
      */
     init() {
-        this.el = document.createElement("div");
-        this.el.classList.add("bulletin-notification");
-        this.el.classList.toggle("flash", this.flash);
-        this.el.classList.toggle("pinned", this.pin_id != undefined);
-
         this.message = this.parseMessage(this.message);
         this.el.innerHTML = this.message;      
     }
