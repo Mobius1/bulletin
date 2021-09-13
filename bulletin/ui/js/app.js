@@ -473,7 +473,12 @@ class Notification {
         for (const n of this.container.notifications) {
             const r = n.el.getBoundingClientRect();
 
-            n.el.style.top = `${posY}px`;
+            if ( this.bottom ) {
+                n.el.style.bottom = `${posY}px`;
+            } else {
+                n.el.style.top = `${posY}px`;
+            }
+
             posY += r.height + this.container.spacing;
         }
     }
