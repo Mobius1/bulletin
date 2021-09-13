@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Karl Saunders (Mobius1)
  * Licensed under GPLv3
  * 
- * Version: 1.1.7
+ * Version: 1.1.8
  *
  *  ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 */
@@ -426,6 +426,57 @@ class Notification {
 			
         return message;
     }
+
+    update(options) {
+        if ( this.type == 'advanced' ) {
+
+            if ( options.hasOwnProperty('title') ) {
+                this.title = this.parseMessage(options.title);
+            }
+
+            if ( options.hasOwnProperty('subject') ) {
+                this.subject = this.parseMessage(options.subject);
+            }
+
+            if ( options.hasOwnProperty('message') ) {
+                this.message = this.parseMessage(options.message);
+            }
+
+            if ( options.hasOwnProperty('icon') ) {
+                this.iconEl.innerHTML = `<img src="images/${options.icon}" />`;
+            }
+
+            this.titleEl.innerHTML = this.title;
+            this.subjectEl.innerHTML = this.subject;
+            this.messageEl.innerHTML = this.message;
+        } else if ( this.type == 'standard' ) {
+            if ( options.hasOwnProperty('message') ) {
+                this.message = this.parseMessage(options.message);
+            }
+
+            this.el.innerHTML = this.message;  
+        }
+
+        if ( options.hasOwnProperty('theme') ) {
+            this.el.classList.remove(this.theme);
+
+            this.theme = options.theme;
+            this.el.classList.add(this.theme);
+        }
+
+        this.rearrange();
+    }
+
+    rearrange() {
+        let posY = 0;
+
+        for (const n of this.container.notifications) {
+            const r = n.el.getBoundingClientRect();
+
+            n.el.style.top = `${posY}px`;
+            posY += r.height + this.container.spacing;
+        }
+    }
 }
 
 /**
@@ -459,6 +510,7 @@ class StandardNotification extends Notification {
      * @memberof StandardNotification
      */
     init() {
+        this.type = 'standard';
         this.message = this.parseMessage(this.message);
         this.el.innerHTML = this.message;      
     }
@@ -499,6 +551,7 @@ class AdvancedNotification extends Notification {
      */
     init() {
 
+        this.type = 'advanced';
         this.title = this.parseMessage(this.title);
         this.subject = this.parseMessage(this.subject);
         this.message = this.parseMessage(this.message);
@@ -606,6 +659,10 @@ const onData = function(e) {
                 for ( let id in pinned ) { // unpin all
                     pinned[id].unpin();
                 }
+            }
+        } else if (data.type == "update_pinned") {
+            if ( pinned.hasOwnProperty(data.pin_id) ) {
+                pinned[data.pin_id].update(data.options)
             }
         }
     }

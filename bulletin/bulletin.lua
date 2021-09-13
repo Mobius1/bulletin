@@ -3,7 +3,7 @@
 -- * Copyright (c) 2021 Karl Saunders (Mobius1)
 -- * Licensed under GPLv3
 
--- * Version: 1.1.7
+-- * Version: 1.1.8
 --
 -- ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 
@@ -202,6 +202,13 @@ function Unpin(pinned)
     })
 end
 
+function UpdatePinned(pinned, options)
+    SendNUIMessage({
+        type = 'update_pinned',
+        pin_id = pinned,
+        options = options
+    })
+end
 
 --[[
 -- Send custom notification   

@@ -6,18 +6,20 @@ description 'bulletin'
 
 author 'Karl Saunders (Mobius1)'
 
-version '1.1.7'
+version '1.1.8'
 
 client_scripts {
     'config.lua',
-    'bulletin.lua'
+    'bulletin.lua',
+    'demo.lua'
 }
 
 ui_page 'ui/ui.html'
 
 files {
     'ui/ui.html',
-    'ui/images/*',
+    'ui/images/*.jpg',
+    'ui/images/*.png',
     'ui/audio/*.ogg',
     'ui/audio/*.mp3',
     'ui/audio/*.wav',
@@ -34,5 +36,6 @@ exports {
     'SendWarning',
     'SendError',
     'SendPinned',
-    'Unpin'
+    'Unpin',
+    'UpdatePinned'
 }
