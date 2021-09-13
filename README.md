@@ -64,7 +64,7 @@ exports.bulletin:SendAdvanced({
     message = 'Some Message',
     title = 'Some Title',
     subject = 'Some Subtitle',
-    icon = 'CHAR_MAZE_BANK',
+    icon = 'CHAR_BANK_MAZE',
     ...
 })
 ```
@@ -75,7 +75,7 @@ local pinID = exports.bulletin:SendPinned({
     message = 'This is pinned!',
     title = 'Title',
     subject = 'Subject',
-    icon = 'CHAR_MAZE_BANK'
+    icon = 'CHAR_BANK_MAZE'
 })
 
 -- unpin
@@ -86,6 +86,24 @@ exports.bulletin:Unpin({pinID1, pinID2, pinID3, ...})
 
 -- unpin all
 exports.bulletin:Unpin()
+
+-- Update content
+local pinID = exports.bulletin:SendPinned({
+    type = 'advanced'
+    message = 'This is pinned!',
+    title = 'Title',
+    subject = 'Subject',
+    icon = 'CHAR_BANK_MAZE',
+    theme = 'success'
+})
+
+exports.bulletin:UpdatePinned(pinID, {
+    message = 'Updated message!',
+    title = 'Updated title',
+    subject = 'Updated subject',
+    icon = 'CHAR_TREVOR',
+    theme = 'error'
+})
 ```
 ## Helper Functions
 These are shorthand methods for sending themed notification. They take the same params / table as the `Send()` method:

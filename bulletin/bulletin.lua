@@ -203,6 +203,10 @@ function Unpin(pinned)
 end
 
 function UpdatePinned(pinned, options)
+    if options.icon ~= nil then
+        options.icon = Config.Pictures[options.icon]
+    end
+
     SendNUIMessage({
         type = 'update_pinned',
         pin_id = pinned,
