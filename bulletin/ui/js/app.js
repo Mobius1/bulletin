@@ -463,6 +463,14 @@ class Notification {
             this.el.classList.add(this.theme);
         }
 
+        if ( options.hasOwnProperty('flash') && options.flash == true ) {
+            this.el.classList.remove("flash");
+
+            setTimeout(() => {
+                this.el.classList.add("flash");
+            }, 1);
+        }
+
         this.rearrange(this.el.getBoundingClientRect().height);
     }
 

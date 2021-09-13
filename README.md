@@ -87,23 +87,8 @@ exports.bulletin:Unpin({pinID1, pinID2, pinID3, ...})
 -- unpin all
 exports.bulletin:Unpin()
 
--- Update content
-local pinID = exports.bulletin:SendPinned({
-    type = 'advanced'
-    message = 'This is pinned!',
-    title = 'Title',
-    subject = 'Subject',
-    icon = 'CHAR_BANK_MAZE',
-    theme = 'success'
-})
-
-exports.bulletin:UpdatePinned(pinID, {
-    message = 'Updated message!',
-    title = 'Updated title',
-    subject = 'Updated subject',
-    icon = 'CHAR_TREVOR',
-    theme = 'error'
-})
+-- update content
+exports.bulletin:UpdatePinned(pinID, options)
 ```
 ## Helper Functions
 These are shorthand methods for sending themed notification. They take the same params / table as the `Send()` method:
@@ -242,6 +227,31 @@ or omit the param to unpin all:
 ```lua
 exports.bulletin:Unpin()
 ```
+
+You can also update the content of a pinned notification:
+```lua
+-- Send pinned notification
+local pinID = exports.bulletin:SendPinned({
+    type = 'advanced'
+    message = 'This is pinned!',
+    title = 'Title',
+    subject = 'Subject',
+    icon = 'CHAR_BANK_MAZE',
+    theme = 'success'
+})
+
+-- Update it's content
+exports.bulletin:UpdatePinned(pinID, {
+    message = 'Updated message!',
+    title = 'Updated title',
+    subject = 'Updated subject',
+    icon = 'CHAR_TREVOR',
+    theme = 'error',
+    flash = true
+})
+```
+
+Only the `message`, `title`, `subject`, `icon`, `theme` and `flash` options can be updated at the monent.
 
 Pinned notifications are not queued so, for example, if you set `Config.Queue` to `5` and you have `2` pinned notifications, you'll get a max of `7` notifications shown at any time.
 
