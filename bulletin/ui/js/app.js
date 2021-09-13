@@ -429,7 +429,6 @@ class Notification {
 
     update(options) {
         if ( this.type == 'advanced' ) {
-
             if ( options.hasOwnProperty('title') ) {
                 this.title = this.parseMessage(options.title);
             }
@@ -464,14 +463,17 @@ class Notification {
             this.el.classList.add(this.theme);
         }
 
-        this.rearrange();
+        this.rearrange(this.el.getBoundingClientRect().height);
     }
 
-    rearrange() {
+    rearrange(h) {
         let posY = 0;
 
         for (const n of this.container.notifications) {
-            const r = n.el.getBoundingClientRect();
+            const rn = n.el.getBoundingClientRect();
+            const offset = (rn.height - h);
+
+            n.offset -= offset;
 
             if ( this.bottom ) {
                 n.el.style.bottom = `${posY}px`;
@@ -479,7 +481,7 @@ class Notification {
                 n.el.style.top = `${posY}px`;
             }
 
-            posY += r.height + this.container.spacing;
+            posY += rn.height + this.container.spacing;
         }
     }
 }
