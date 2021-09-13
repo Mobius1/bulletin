@@ -251,7 +251,7 @@ exports.bulletin:UpdatePinned(pinID, {
 })
 ```
 
-Only the `message`, `title`, `subject`, `icon`, `theme` and `flash` options can be updated at the monent.
+Only the `message`, `title`, `subject`, `icon`, `theme` and `flash` options can be updated at the moment.
 
 Pinned notifications are not queued so, for example, if you set `Config.Queue` to `5` and you have `2` pinned notifications, you'll get a max of `7` notifications shown at any time.
 
