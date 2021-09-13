@@ -232,7 +232,7 @@ You can also update the content of a pinned notification:
 ```lua
 -- Send pinned notification
 local pinID = exports.bulletin:SendPinned({
-    type = 'advanced'
+    type = 'advanced',
     message = 'This is pinned!',
     title = 'Title',
     subject = 'Subject',
