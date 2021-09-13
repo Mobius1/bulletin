@@ -305,6 +305,9 @@ AddEventHandler("bulletin:sendPinned", SendPinned)
 RegisterNetEvent("bulletin:unpin")
 AddEventHandler("bulletin:unpin", Unpin)
 
+RegisterNetEvent("bulletin:updatePinned")
+AddEventHandler("bulletin:updatePinned", UpdatePinned)
+
 RegisterNUICallback("nui_removed", function(data, cb)
     notifications[data.id] = nil
     cb('ok')
