@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Karl Saunders (Mobius1)
  * Licensed under GPLv3
  * 
- * Version: 1.1.8
+ * Version: 1.1.9
  *
  *  ! Edit it if you want, but don't re-release this without my permission, and never claim it to be yours !
 */
