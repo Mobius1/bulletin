@@ -71,7 +71,7 @@ exports.bulletin:SendAdvanced({
 #### Pinned notification
 ```lua
 local pinID = exports.bulletin:SendPinned({
-    type = 'advanced' -- or 'standard'
+    type = 'advanced', -- or 'standard'
     message = 'This is pinned!',
     title = 'Title',
     subject = 'Subject',
