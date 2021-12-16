@@ -182,6 +182,9 @@ Config.SoundFile        = 'my_notification_sound.mp3'
 Config.SoundVolume      = 0.4
 ```
 
+Valid audio files: `.mp3`, `.ogg`, `.wav`
+
+
 ## Formatting
 Bulletin supports the following formatting:
 
