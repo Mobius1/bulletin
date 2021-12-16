@@ -33,6 +33,7 @@ Customisable notifications for FiveM. Mimics native GTAV notifications, but allo
   * [Parameters](#parameters)
   * [Default Config](#default-config)
   * [Custom Notification Pictures](#custom-notification-pictures)
+  * [Notification Sound](#notification-sound)  
   * [Formatting](#formatting)
   * [Pinned Notifications](#pinned-notifications)
   * [ESX Overrides](#esx-overrides)
@@ -170,6 +171,15 @@ Then use the custom code in the notification call:
 
 ```lua
 exports.bulletin:SendAdvanced("Message", "Title", "Subject", "MY_CUSTOM_ICON_CODE")
+```
+
+## Notification Sound
+
+You can enable a notification sound by uploading a custom sound file to the `ui/audio` directory and editing the config to use it:
+
+```lua
+Config.SoundFile        = 'my_notification_sound.mp3'
+Config.SoundVolume      = 0.4
 ```
 
 ## Formatting
