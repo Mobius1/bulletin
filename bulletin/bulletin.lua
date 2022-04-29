@@ -55,7 +55,7 @@ function Send(message, timeout, position, progress, theme, exitAnim, flash, pin_
     end
     
     if progress == nil then
-        progress = false
+        progress = Config.Progress
     end
 
     local id = nil
@@ -129,7 +129,7 @@ function SendAdvanced(message, title, subject, icon, timeout, position, progress
     end
     
     if progress == nil then
-        progress = false
+        progress = Config.Progress
     end  
 
     local id = nil
